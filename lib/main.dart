@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
 import 'core/routes/app_routes.dart';
 
-void main() {
+void main() async {
   /*
   You only need to call this method if you need the binding to be
   initialized before calling [runApp].
   */
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Load the .env file
+  await dotenv.load(fileName: ".env");
 
   runApp(const MyApp());
 }
