@@ -1,9 +1,11 @@
 import 'package:interview/core/constants/constants.dart';
 import 'package:interview/core/network/dio_request_manager.dart';
-import 'package:interview/feature/news/application/sorting/sequential_algoritm.dart';
 import 'package:interview/feature/news/application/usecases/news_use_case.dart';
 import 'package:interview/feature/news/data/datasource/news_api_datasource.dart';
 import 'package:interview/feature/news/data/repository/news_repository.dart';
+
+import 'application/params/news_params.dart';
+import 'application/services/sorting/sequential_algorithm.dart';
 
 /// This is a standalone runner to test the news fetching logic without Flutter.
 /// To run this file, open your terminal and execute:
@@ -20,7 +22,7 @@ void main() async {
   final newsRepository = HomeRepositoryImp(newsDataSource);
 
   // Application Layer
-  final sortingAlgorithm = SequentialAlgoritm();
+  final sortingAlgorithm = SequentialAlgorithm();
   final newsUseCase = NewsUseCase(
     repository: newsRepository,
     algorithm: sortingAlgorithm,

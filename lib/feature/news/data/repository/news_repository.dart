@@ -6,7 +6,7 @@ import 'package:interview/feature/news/data/datasource/interface/news_datasource
 import 'package:interview/feature/news/domain/entities/news_entities.dart';
 import 'package:interview/feature/news/domain/repository/news_repository.dart';
 
-import '../../application/usecases/news_use_case.dart';
+import '../../application/params/news_params.dart';
 
 
 class HomeRepositoryImp extends NewsRepository {

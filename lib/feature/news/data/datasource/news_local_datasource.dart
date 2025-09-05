@@ -2,7 +2,7 @@ import 'package:interview/core/model/response_model.dart';
 import 'package:interview/core/repository/base_storage_repository.dart';
 import 'package:interview/feature/news/data/models/news_model.dart';
 
-import '../../application/usecases/news_use_case.dart';
+import '../../application/params/news_params.dart';
 import 'interface/news_datasource.dart';
 
 class NewsLocalDataSourceIml extends BaseStorageRepository implements NewsDataSource {
