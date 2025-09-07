@@ -8,7 +8,6 @@ import 'package:interview/feature/news/domain/repository/news_repository.dart';
 
 import '../../application/params/news_params.dart';
 
-
 class HomeRepositoryImp extends NewsRepository {
   final NewsDataSource _newsDataSource;
 
