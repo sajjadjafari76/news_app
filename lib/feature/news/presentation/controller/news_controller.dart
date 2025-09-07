@@ -24,7 +24,7 @@ class NewsController extends GetxController {
       isLoading.value = true;
       errorMessage.value = '';
 
-      final result = await _newsUseCase.call(NoParams());
+      final result = await _newsUseCase(NoParams());
 
       result.fold((failure) => _handleFailure(failure), (news) {
         newsList.value = news;

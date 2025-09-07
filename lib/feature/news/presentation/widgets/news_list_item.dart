@@ -37,12 +37,14 @@ class NewsListItem extends StatelessWidget {
     );
   }
 
-  _newsAuthor() {
+  Widget _newsAuthor() {
     if (news.author != null && news.author!.isNotEmpty) {
       return Text(
         'By ${news.author}',
         style: const TextStyle(fontSize: 12, color: Colors.grey, fontStyle: FontStyle.italic),
       );
+    } else {
+      return SizedBox();
     }
   }
 
@@ -64,7 +66,7 @@ class NewsListItem extends StatelessWidget {
     );
   }
 
-  _newsImage() {
+  Widget _newsImage() {
     if (news.urlToImage != null && news.urlToImage!.isNotEmpty) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(8),
@@ -78,6 +80,8 @@ class NewsListItem extends StatelessWidget {
           },
         ),
       );
+    } else {
+      return SizedBox();
     }
   }
 

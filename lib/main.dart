@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/widget/main_wrapper.dart';
@@ -21,5 +19,5 @@ void main() async {
 Future<void> _initializeHiveDatabase() async {
   await Hive.initFlutter();
   Hive.registerAdapter(NewsModelAdapter());
-  await Hive.openBox<List<dynamic>>('news_list_cache_box');
+  await Hive.openBox<List<NewsModel>>('news_list_cache_box');
 }

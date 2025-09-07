@@ -40,6 +40,7 @@ class NewsService {
 
         final result = await _repository.getNews(params);
 
+
         result.fold((failure) {
           // Log error but continue with other companies
           // In production, you might want to use a proper logger

@@ -3,13 +3,11 @@ import 'package:interview/feature/news/domain/failure/failures.dart';
 /// Parameters for news requests with validation
 class NewsParams {
   final String company;
-  final String country;
   final DateTime fromDate;
   final DateTime toDate;
 
   const NewsParams({
     required this.company,
-    required this.country,
     required this.fromDate,
     required this.toDate,
   });
@@ -39,7 +37,6 @@ class NewsParams {
 
     return NewsParams(
       company: company,
-      country: country,
       fromDate: fromDate,
       toDate: toDate,
     );
@@ -67,7 +64,8 @@ class NewsParams {
       'from': fromDate.toIso8601String().split('T')[0],
       'to': toDate.toIso8601String().split('T')[0],
       'sortBy': "publishedAt",
-      'country': country,
+      'page': "1",
+      'pageSize': "20",
     };
   }
 

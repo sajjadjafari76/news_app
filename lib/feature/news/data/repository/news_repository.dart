@@ -1,7 +1,5 @@
 import 'package:either_dart/either.dart';
-import 'package:interview/core/errors/exception_mapper.dart';
 import 'package:interview/feature/news/domain/failure/failures.dart';
-import 'package:interview/core/errors/my_exception.dart';
 import 'package:interview/feature/news/data/datasource/interface/news_local_datasource.dart';
 import 'package:interview/feature/news/data/models/news_model.dart';
 import 'package:interview/feature/news/domain/entities/news_entities.dart';
@@ -22,14 +20,14 @@ class HomeRepositoryImp extends NewsRepository {
       List<NewsModel> news = await _newsRemoteDataSource.getNews(params);
 
       // Cache the fetched news
-      await _newsLocalDataSource.cacheNews(news);
+      await _newsLocalDataSource.cacheNews(params.company, news);
 
       List<NewsEntity> newsEntity = news.map((e) => e.toEntity()).toList();
       return Right(newsEntity);
     } catch (e) {
       // If remote fails, try to get cached data
       try {
-        final cachedArticles = await _newsLocalDataSource.getCachedNews();
+        final cachedArticles = await _newsLocalDataSource.getCachedNews(params.company);
         if (cachedArticles.isNotEmpty) {
           return Right(cachedArticles.map((model) => model.toEntity()).toList());
         }
@@ -41,9 +39,9 @@ class HomeRepositoryImp extends NewsRepository {
   }
 
   @override
-  Future<Either<Failure, List<NewsEntity>>> getCachedNews() async {
+  Future<Either<Failure, List<NewsEntity>>> getCachedNews(String company) async {
     try {
-      final news = await _newsLocalDataSource.getCachedNews();
+      final news = await _newsLocalDataSource.getCachedNews(company);
       return Right(news.map((model) => model.toEntity()).toList());
     } catch (e) {
       return Left(CacheFailure(e.toString()));
@@ -51,10 +49,10 @@ class HomeRepositoryImp extends NewsRepository {
   }
 
   @override
-  Future<Either<Failure, void>> cacheNews(List<NewsEntity> news) async {
+  Future<Either<Failure, void>> cacheNews(String company, List<NewsEntity> news) async {
     try {
       final models = news.map((entity) => NewsModel.fromEntity(entity)).toList();
-      await _newsLocalDataSource.cacheNews(models);
+      await _newsLocalDataSource.cacheNews(company, models);
       return const Right(null);
     } catch (e) {
       return Left(CacheFailure(e.toString()));

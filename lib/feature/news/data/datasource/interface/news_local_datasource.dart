@@ -1,10 +1,9 @@
-import '../../../application/params/news_params.dart';
 import '../../models/news_model.dart';
 
 abstract class NewsLocalDataSource {
-  Future<List<NewsModel>> getCachedNews();
+  Future<List<NewsModel>> getCachedNews(String company);
 
-  Future<void> cacheNews(List<NewsModel> news);
+  Future<void> cacheNews(String company, List<NewsModel> news);
 
-  Future<void> clearCache();
+  Future<void> clearCache(String company);
 }
