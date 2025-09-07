@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:interview/core/extention/extension_date_time.dart';
+import 'package:interview/core/extention/extension_string.dart';
 
 import '../controller/news_controller.dart';
 import '../widgets/news_list_item.dart';
@@ -16,12 +18,7 @@ class NewsPage extends GetView<NewsController> {
         title: const Text('Tech News'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: controller.refreshNews,
-          ),
-        ],
+        actions: [IconButton(icon: const Icon(Icons.refresh), onPressed: controller.refreshNews)],
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
@@ -35,16 +32,9 @@ class NewsPage extends GetView<NewsController> {
               children: [
                 const Icon(Icons.error_outline, size: 64, color: Colors.red),
                 const SizedBox(height: 16),
-                Text(
-                  controller.errorMessage.value,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 16),
-                ),
+                Text(controller.errorMessage.value, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
                 const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: controller.refreshNews,
-                  child: const Text('Retry'),
-                ),
+                ElevatedButton(onPressed: controller.refreshNews, child: const Text('Retry')),
               ],
             ),
           );
@@ -57,10 +47,7 @@ class NewsPage extends GetView<NewsController> {
               children: [
                 Icon(Icons.article_outlined, size: 64, color: Colors.grey),
                 SizedBox(height: 16),
-                Text(
-                  'No news available',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
-                ),
+                Text('No news available', style: TextStyle(fontSize: 16, color: Colors.grey)),
               ],
             ),
           );
@@ -76,7 +63,7 @@ class NewsPage extends GetView<NewsController> {
                 padding: const EdgeInsets.all(16),
                 color: Colors.grey[100],
                 child: Text(
-                  'Last updated: ${controller.formatDate(controller.lastUpdated.value)}',
+                  'Last updated: ${controller.lastUpdated.value.formatDate()}',
                   style: const TextStyle(fontSize: 12, color: Colors.grey),
                   textAlign: TextAlign.center,
                 ),
@@ -88,16 +75,10 @@ class NewsPage extends GetView<NewsController> {
                   itemCount: controller.newsList.length,
                   itemBuilder: (context, index) {
                     final news = controller.newsList[index];
-                    final companyName = controller.getCompanyName(news);
-                    final formattedDate = controller.formatDate(
-                      news.publishedAt,
-                    );
+                    final companyName = news.title?.getCompanyName() ?? "";
+                    final formattedDate = news.publishedAt?.formatDate() ?? '';
 
-                    return NewsListItem(
-                      news: news,
-                      companyName: companyName,
-                      formattedDate: formattedDate,
-                    );
+                    return NewsListItem(news: news, companyName: companyName, formattedDate: formattedDate);
                   },
                 ),
               ),

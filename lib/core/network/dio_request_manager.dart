@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../constants/constants.dart';
 import '../errors/error_helper.dart';
@@ -44,10 +45,7 @@ class DioHttpClient extends IHttpClient {
     ResponseType? responseType = ResponseType.plain,
   }) async {
     try {
-
-      // todo change this
-      // queryParameters?['apiKey'] = dotenv.env['NEWS_API_KEY'] ?? '';
-      queryParameters?['apiKey'] = 'a3d859a6b843415caffbfacf1278ebb6';
+      queryParameters?['apiKey'] = dotenv.env['NEWS_API_KEY'] ?? '';
 
       final response = await _dio.get(
         path,

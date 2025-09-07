@@ -6,7 +6,6 @@ import 'package:interview/feature/news/domain/entities/news_entities.dart';
 import '../services/news_service.dart';
 
 /// Use case for fetching all companies news
-/// Follows Single Responsibility Principle (SRP)
 class NewsUseCase extends UseCase<List<NewsEntity>, NoParams> {
   final NewsService _newsService;
 

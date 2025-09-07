@@ -13,8 +13,17 @@ class NewsLocalDataSourceIml extends BaseStorageRepository implements NewsLocalD
 
   @override
   Future<List<NewsModel>> getCachedNews(String company) async {
-    var result = _newsBox.get(company) as List<NewsModel>;
-    return result;
+    try {
+      List<NewsModel>? result = _newsBox.get(company);
+
+      if (result == null) {
+        return List.empty();
+      }
+
+      return result;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override

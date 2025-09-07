@@ -89,7 +89,7 @@ class NewsService {
   Future<Either<Failure, List<NewsEntity>>>
   fetchYesterdayToNowNewsFromUs() async {
     final now = DateTime.now();
-    final yesterday = now.subtract(const Duration(days: 1));
+    final yesterday = now.subtract(const Duration(days: 2));
 
     return fetchAllCompaniesNews(
       fromDate: yesterday,

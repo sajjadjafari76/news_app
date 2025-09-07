@@ -46,31 +46,7 @@ class NewsController extends GetxController {
     Get.snackbar(failure.title, failure.message);
   }
 
-  /// Gets the company name from news title
-  String getCompanyName(NewsEntity news) {
-    final title = news.title?.toLowerCase() ?? '';
-    if (title.contains('microsoft')) return 'Microsoft';
-    if (title.contains('apple')) return 'Apple';
-    if (title.contains('google')) return 'Google';
-    if (title.contains('tesla')) return 'Tesla';
-    return 'Unknown';
-  }
 
-  /// Formats date for display
-  String formatDate(DateTime? date) {
-    if (date == null) return 'Unknown date';
-
-    final now = DateTime.now();
-    final difference = now.difference(date);
-
-    if (difference.inMinutes < 60) {
-      return '${difference.inMinutes}m ago';
-    } else if (difference.inHours < 24) {
-      return '${difference.inHours}h ago';
-    } else {
-      return '${difference.inDays}d ago';
-    }
-  }
 
   @override
   void onInit() {

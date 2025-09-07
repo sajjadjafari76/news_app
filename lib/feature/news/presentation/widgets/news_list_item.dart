@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:interview/core/routes/app_routes.dart';
 import 'package:interview/feature/news/domain/entities/news_entities.dart';
 
 /// Widget for displaying individual news items
@@ -7,41 +9,58 @@ class NewsListItem extends StatelessWidget {
   final String companyName;
   final String formattedDate;
 
-  const NewsListItem({super.key, required this.news, required this.companyName, required this.formattedDate});
+  const NewsListItem({
+    super.key,
+    required this.news,
+    required this.companyName,
+    required this.formattedDate,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _companyNameAndDate(),
-            const SizedBox(height: 12),
+      child: InkWell(
+        onTap: () => _navigateToDetail(),
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _companyNameAndDate(),
+              const SizedBox(height: 12),
 
-            _newsImage(),
-            const SizedBox(height: 12),
+              _newsImage(),
+              const SizedBox(height: 12),
 
-            _newsTitle(),
-            const SizedBox(height: 8),
+              _newsTitle(),
+              const SizedBox(height: 8),
 
-            _newsDescription(),
-            const SizedBox(height: 12),
+              _newsDescription(),
+              const SizedBox(height: 12),
 
-            _newsAuthor(),
-          ],
+              _newsAuthor(),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void _navigateToDetail() {
+    Get.toNamed(AppRoutes.newsDetail, arguments: news);
   }
 
   Widget _newsAuthor() {
     if (news.author != null && news.author!.isNotEmpty) {
       return Text(
         'By ${news.author}',
-        style: const TextStyle(fontSize: 12, color: Colors.grey, fontStyle: FontStyle.italic),
+        style: const TextStyle(
+          fontSize: 12,
+          color: Colors.grey,
+          fontStyle: FontStyle.italic,
+        ),
       );
     } else {
       return SizedBox();
@@ -76,7 +95,11 @@ class NewsListItem extends StatelessWidget {
           width: double.infinity,
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) {
-            return Container(height: 200, color: Colors.grey[300], child: const Icon(Icons.image_not_supported));
+            return Container(
+              height: 200,
+              color: Colors.grey[300],
+              child: const Icon(Icons.image_not_supported),
+            );
           },
         ),
       );
@@ -91,13 +114,23 @@ class NewsListItem extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(color: _getCompanyColor(companyName), borderRadius: BorderRadius.circular(12)),
+          decoration: BoxDecoration(
+            color: _getCompanyColor(companyName),
+            borderRadius: BorderRadius.circular(12),
+          ),
           child: Text(
             companyName,
-            style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-        Text(formattedDate, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+        Text(
+          formattedDate,
+          style: const TextStyle(color: Colors.grey, fontSize: 12),
+        ),
       ],
     );
   }

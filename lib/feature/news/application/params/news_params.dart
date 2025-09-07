@@ -62,7 +62,7 @@ class NewsParams {
     return {
       'q': company,
       'from': fromDate.toIso8601String().split('T')[0],
-      'to': toDate.toIso8601String().split('T')[0],
+      'to': toDate.toIso8601String(),
       'sortBy': "publishedAt",
       'page': "1",
       'pageSize': "20",
