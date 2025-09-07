@@ -73,7 +73,6 @@ This project follows **Clean Architecture** principles with a clear separation o
 - **GetX**: State management, routing, and dependency injection
 - **Dio**: HTTP client with interceptors and error handling
 - **Hive**: Local database for caching
-- **Get Storage**: Lightweight key-value storage
 
 ### Development Tools
 - **Build Runner**: Code generation for Hive adapters
