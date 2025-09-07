@@ -1,6 +1,6 @@
 import '../../../application/params/news_params.dart';
 import '../../models/news_model.dart';
 
-abstract class NewsDataSource {
+abstract class NewsRemoteDataSource {
   Future<List<NewsModel>> getNews(NewsParams params);
 }

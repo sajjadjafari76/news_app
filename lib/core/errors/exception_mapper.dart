@@ -1,4 +1,4 @@
-import 'failures.dart';
+import '../../feature/news/domain/failure/failures.dart';
 import 'my_exception.dart';
 
 /// Maps infrastructure exceptions to domain failures

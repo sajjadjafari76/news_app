@@ -3,10 +3,10 @@ import 'package:interview/core/repository/base_api_repository.dart';
 import 'package:interview/feature/news/data/models/news_model.dart';
 
 import '../../application/params/news_params.dart';
-import 'interface/news_datasource.dart';
+import 'interface/news_remote_datasource.dart';
 
-class NewsDataSourceIml extends BaseRepository implements NewsDataSource {
-  NewsDataSourceIml(super.httpClient);
+class NewsRemoteDataSourceIml extends BaseRepository implements NewsRemoteDataSource {
+  NewsRemoteDataSourceIml(super.httpClient);
 
   @override
   Future<List<NewsModel>> getNews(NewsParams params) async {

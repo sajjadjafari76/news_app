@@ -4,42 +4,22 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'core/routes/app_routes.dart';
+import 'core/widget/main_wrapper.dart';
+import 'feature/news/data/models/news_model.dart';
 
 void main() async {
-  /*
-  You only need to call this method if you need the binding to be
-  initialized before calling [runApp].
-  */
   WidgetsFlutterBinding.ensureInitialized();
 
   // Load the .env file
   await dotenv.load(fileName: ".env");
 
-  // init the GetStorage
-  await GetStorage.init();
+  await _initializeHiveDatabase();
 
-  // initialize Hive database
-
-  await Hive.initFlutter();
-  // Hive.registerAdapter(CityModelBaseAdapter());
-  await Hive.openBox('news');
-
-  runApp(const MyApp());
+  runApp(const AppWrapper());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'News App',
-      theme: ThemeData(),
-      debugShowCheckedModeBanner: false,
-      getPages: AppRoutes.pages,
-      initialRoute: AppRoutes.newsList,
-      // initialBinding: NewsBindings(),
-    );
-  }
+Future<void> _initializeHiveDatabase() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(NewsModelAdapter());
+  await Hive.openBox<List<dynamic>>('news_list_cache_box');
 }

@@ -1,4 +1,4 @@
-import 'package:interview/core/errors/failures.dart';
+import 'package:interview/feature/news/domain/failure/failures.dart';
 
 /// Parameters for news requests with validation
 class NewsParams {

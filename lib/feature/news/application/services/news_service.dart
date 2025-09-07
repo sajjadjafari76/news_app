@@ -1,5 +1,5 @@
 import 'package:either_dart/either.dart';
-import 'package:interview/core/errors/failures.dart';
+import 'package:interview/feature/news/domain/failure/failures.dart';
 import 'package:interview/feature/news/domain/entities/news_entities.dart';
 import 'package:interview/feature/news/domain/repository/news_repository.dart';
 
