@@ -21,7 +21,6 @@ class NewsParams {
   /// Creates NewsParams with validation
   factory NewsParams.create({
     required String company,
-    required String country,
     required DateTime fromDate,
     required DateTime toDate,
   }) {
@@ -52,7 +51,6 @@ class NewsParams {
 
     return NewsParams.create(
       company: company,
-      country: country,
       fromDate: yesterday,
       toDate: now,
     );

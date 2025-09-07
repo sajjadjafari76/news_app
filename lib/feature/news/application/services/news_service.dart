@@ -35,7 +35,6 @@ class NewsService {
           company: company,
           fromDate: fromDate,
           toDate: toDate,
-          country: country,
         );
 
         final result = await _repository.getNews(params);
@@ -71,7 +70,6 @@ class NewsService {
         company: company,
         fromDate: fromDate,
         toDate: toDate,
-        country: country,
       );
 
       final result = await _repository.getNews(params);
