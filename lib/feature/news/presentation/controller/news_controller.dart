@@ -5,15 +5,14 @@ import 'package:interview/feature/news/application/usecases/news_use_case.dart';
 import 'package:interview/feature/news/domain/entities/news_entities.dart';
 
 /// Controller for managing news display
-/// Follows Single Responsibility Principle (SRP)
-class NewsController extends GetxController {
+class NewsController extends GetxController with StateMixin<List<NewsEntity>> {
   final NewsUseCase _newsUseCase;
 
   NewsController(this._newsUseCase);
 
   // Observable state
-  var isLoading = false.obs;
-  var errorMessage = ''.obs;
+  // var isLoading = false.obs;
+  // var errorMessage = ''.obs;
   var newsList = <NewsEntity>[].obs;
   var lastUpdated = DateTime.now().obs;
 
@@ -21,18 +20,16 @@ class NewsController extends GetxController {
   /// Sorted by newest first, arranged sequentially by company
   Future<void> fetchAllNews() async {
     try {
-      isLoading.value = true;
-      errorMessage.value = '';
+      change(null, status: RxStatus.loading());
 
       final result = await _newsUseCase(NoParams());
 
       result.fold((failure) => _handleFailure(failure), (news) {
         newsList.value = news;
         lastUpdated.value = DateTime.now();
+        change(newsList, status: RxStatus.success());
       });
-    } finally {
-      isLoading.value = false;
-    }
+    } finally {}
   }
 
   /// Refreshes the news list
@@ -42,11 +39,8 @@ class NewsController extends GetxController {
 
   /// Handles failure with user-friendly messages
   void _handleFailure(Failure failure) {
-    errorMessage.value = failure.message;
-    Get.snackbar(failure.title, failure.message);
+    change(null, status: RxStatus.error(failure.message));
   }
-
-
 
   @override
   void onInit() {

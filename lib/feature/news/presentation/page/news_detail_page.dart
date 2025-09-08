@@ -14,19 +14,15 @@ class NewsDetailPage extends GetView<NewsDetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      body: Obx(() {
-        final news = controller.news.value;
-
-        if (news == null) {
-          return _errorShowing();
-        }
-
-        return _mainInfo(news);
-      }),
+      body: controller.obx((state) => _mainInfo(state), onError: (String? error) => _errorShowing()),
     );
   }
 
-  Widget _mainInfo(NewsEntity news) {
+  Widget _mainInfo(NewsEntity? news) {
+    if (news == null) {
+      return _errorShowing();
+    }
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(

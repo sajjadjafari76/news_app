@@ -3,8 +3,7 @@ import 'package:interview/feature/news/domain/entities/news_entities.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Controller for managing news detail display
-/// Follows Single Responsibility Principle (SRP)
-class NewsDetailController extends GetxController {
+class NewsDetailController extends GetxController with StateMixin<NewsEntity> {
   // Observable state
   var news = Rxn<NewsEntity>();
 
@@ -16,9 +15,13 @@ class NewsDetailController extends GetxController {
 
   /// Loads news data from route arguments
   void _loadNewsFromArguments() {
+    change(null, status: RxStatus.loading());
     final arguments = Get.arguments;
     if (arguments != null && arguments is NewsEntity) {
       news.value = arguments;
+      change(news.value, status: RxStatus.success());
+    } else {
+      change(news.value, status: RxStatus.error());
     }
   }
 
@@ -32,7 +35,6 @@ class NewsDetailController extends GetxController {
       await launchUrl(url, mode: LaunchMode.externalApplication);
     }
   }
-
 
   /// Gets the source from the URL
   String getSource(NewsEntity news) {
