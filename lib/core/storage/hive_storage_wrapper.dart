@@ -1,6 +1,4 @@
-import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
-import 'package:interview/feature/news/domain/entities/news_entities.dart';
 
 import 'i_storage.dart';
 
